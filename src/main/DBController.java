@@ -34,8 +34,9 @@ public class DBController {
             String courseCode = gui.getUCASCourseCode();
             if(QueryManager.retrieveRemainingPlaces(courseCode) <= 0) {
                 gui.showErrorMessage("There are no places left on this course.");
+            } else {
+                gui.setRemainingPlacesField(QueryManager.decreaseNoPlaces(courseCode));
             }
-            gui.setRemainingPlacesField(QueryManager.decreaseNoPlaces(courseCode));
         }
     }
 }
