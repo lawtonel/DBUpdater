@@ -1,3 +1,5 @@
+package main;
+
 import javax.swing.*;
 import javax.swing.border.EtchedBorder;
 import java.awt.*;
@@ -60,6 +62,10 @@ public class GUI extends JFrame {
 
     public void addPlacesListener(ActionListener searchListener) {
         placeOfferedButton.addActionListener(searchListener);
+    }
+
+    public void showErrorMessage(String error){
+        JOptionPane.showMessageDialog(this, error);
     }
 }
 

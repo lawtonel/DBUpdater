@@ -5,7 +5,7 @@ import java.sql.*;
 public class TestConnection {
     private static java.sql.Connection connection;
 
-    //public static java.sql.Connection getConnection() {
+    //public static java.sql.main.QueryManager getConnection() {
     public static void main(String[] args) {
         try {
             Class.forName("oracle.jdbc.driver.OracleDriver");

@@ -1,12 +1,14 @@
+package main;
+
 import java.sql.*;
 
-public class Connection {
+public class QueryManager {
     private static java.sql.Connection connection;
     private Statement statement;
     private ResultSet resultSet;
     private int remainingPlaces;
 
-    public Connection() {
+    public QueryManager() {
     }
 
     public int retrieveRemainingPlaces(String UCASCode) {
@@ -17,7 +19,7 @@ public class Connection {
             statement = connection.createStatement();
             resultSet = statement.executeQuery(
                     "SELECT remainingPlaces " +
-                        "FROM Course " +
+                        "FROM Programme " +
                         "WHERE UCASid = '" + UCASCodeUpCase + "'");
             resultSet.next();
             remainingPlaces = resultSet.getInt(1);
@@ -38,9 +40,10 @@ public class Connection {
             connection = DriverManager.getConnection("jdbc:oracle:thin:@localhost:1521:xe", "emily", "Gander41");
             statement = connection.createStatement();
             resultSet = statement.executeQuery(
-                    "UPDATE Course " +
-                        "SET remainingPlaces = remainingPlaces - 1 " +
-                        "WHERE UCASid = '" + UCASCodeUpCase + "'");
+                    "UPDATE Programme " +
+                            "SET remainingPlaces = remainingPlaces - 1 " +
+                            "WHERE UCASid = '" + UCASCodeUpCase + "'");
+            retrieveRemainingPlaces(UCASCode);
             connection.close();
             return remainingPlaces;
         } catch (ClassNotFoundException e) {
