@@ -6,17 +6,16 @@ import java.awt.*;
 import java.awt.event.ActionListener;
 
 public class GUI extends JFrame {
-    private JLabel searchPanelLabel, UCASCodeLabel, placesPanelLabel, remainingPlacesLabel;
     private JTextField UCASCourseCode, remainingPlacesField;
     private JButton searchButton, placeOfferedButton;
 
     public GUI() {
-        searchPanelLabel = new JLabel("Enter the UCAS Course Code and hit 'Search' to find a course.");
-        UCASCodeLabel = new JLabel("UCAS Code");
+        JLabel searchPanelLabel = new JLabel("Enter the UCAS Course Code and hit 'Search' to find a course.");
+        JLabel UCASCodeLabel = new JLabel("UCAS Code");
         UCASCourseCode = new JTextField(10);
         searchButton = new JButton("Search");
-        placesPanelLabel = new JLabel("Select 'Place Offered' to decrease remaining places by one.");
-        remainingPlacesLabel = new JLabel("Remaining Places");
+        JLabel placesPanelLabel = new JLabel("Select 'Place Offered' to decrease remaining places by one.");
+        JLabel remainingPlacesLabel = new JLabel("Remaining Places");
         remainingPlacesField = new JTextField(10);
         placeOfferedButton = new JButton("Place Offered");
 
@@ -39,6 +38,7 @@ public class GUI extends JFrame {
         placesPanel.add(placeOfferedButton);
         placesPanel.setBorder(BorderFactory.createEtchedBorder(EtchedBorder.LOWERED));
         placesPanel.setPreferredSize(panelDimensions);
+        remainingPlacesField.setEditable(false);
 
         // JFrame settings
         this.setTitle("Clearing Places Updates");

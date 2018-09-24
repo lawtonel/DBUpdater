@@ -1,6 +1,6 @@
 package main;
 
-public class UpdateProgram {
+public class DBUpdateProgram {
 
     public static void main(String args[]) {
         QueryManager QueryManager = new QueryManager();

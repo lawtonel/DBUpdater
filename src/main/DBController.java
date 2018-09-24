@@ -5,10 +5,10 @@ import java.awt.event.ActionListener;
 
 public class DBController {
     private GUI gui;
-    private QueryManager QueryManager;
+    private QueryManager queryManager;
 
-    public DBController(QueryManager QueryManager, GUI gui) {
-        this.QueryManager = QueryManager;
+    public DBController(QueryManager queryManager, GUI gui) {
+        this.queryManager = queryManager;
         this.gui = gui;
         this.gui.addSearchListener(new SearchListener());
         this.gui.addPlacesListener(new PlacesListener());
@@ -18,11 +18,13 @@ public class DBController {
 
         @Override
         public void actionPerformed(ActionEvent e) {
-            String courseCode = gui.getUCASCourseCode();
+            String courseCode = gui.getUCASCourseCode().toUpperCase();
             if(courseCode.equals("")) {
                 gui.showErrorMessage("Please enter a UCAS Code.");
+            } else if(!queryManager.getCoursesInClearing().contains(courseCode)) {
+                gui.showErrorMessage("Please enter a valid UCAS code");
             } else {
-                gui.setRemainingPlacesField(QueryManager.retrieveRemainingPlaces(courseCode));
+                gui.setRemainingPlacesField(queryManager.retrieveRemainingPlaces(courseCode));
             }
         }
     }
@@ -32,10 +34,12 @@ public class DBController {
         @Override
         public void actionPerformed(ActionEvent e) {
             String courseCode = gui.getUCASCourseCode();
-            if(QueryManager.retrieveRemainingPlaces(courseCode) <= 0) {
+            if(courseCode.equals("")) {
+                gui.showErrorMessage("Please enter a valid UCAS code");
+            } else if(queryManager.retrieveRemainingPlaces(courseCode) <= 0) {
                 gui.showErrorMessage("There are no places left on this course.");
             } else {
-                gui.setRemainingPlacesField(QueryManager.decreaseNoPlaces(courseCode));
+                gui.setRemainingPlacesField(queryManager.decreaseNoPlaces(courseCode));
             }
         }
     }

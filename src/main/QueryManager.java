@@ -14,7 +14,7 @@ public class QueryManager {
         coursesInClearing = getAllCourses();
     }
 
-    public ArrayList getAllCourses() {
+    public ArrayList<String> getAllCourses() {
         try {
             Class.forName("oracle.jdbc.driver.OracleDriver");
             connection = DriverManager.getConnection("jdbc:oracle:thin:@localhost:1521:xe", "emily", "Gander41");
@@ -26,9 +26,7 @@ public class QueryManager {
             while(resultSet.next()) {
                 coursesInClearing.add(resultSet.getString(1));
             }
-        } catch (ClassNotFoundException e) {
-            e.printStackTrace();
-        } catch (SQLException e) {
+        } catch (ClassNotFoundException | SQLException e) {
             e.printStackTrace();
         }
         return coursesInClearing;

@@ -3,13 +3,12 @@ package Test;
 import java.sql.*;
 
 public class TestConnection {
-    private static java.sql.Connection connection;
 
     //public static java.sql.main.QueryManager getConnection() {
     public static void main(String[] args) {
         try {
             Class.forName("oracle.jdbc.driver.OracleDriver");
-            connection = DriverManager.getConnection("jdbc:oracle:thin:@localhost:1521:xe", "emily", "Gander41");
+            Connection connection = DriverManager.getConnection("jdbc:oracle:thin:@localhost:1521:xe", "emily", "Gander41");
             Statement statement = connection.createStatement();
             ResultSet resultSet = statement.executeQuery(
                     "SELECT remainingPlaces " +
@@ -20,9 +19,7 @@ public class TestConnection {
             }
             connection.close();
             //return connection;
-        } catch (ClassNotFoundException e) {
-            e.printStackTrace();
-        } catch (SQLException e) {
+        } catch (ClassNotFoundException | SQLException e) {
             e.printStackTrace();
         }
         //return null;
