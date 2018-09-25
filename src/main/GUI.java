@@ -4,10 +4,14 @@ import javax.swing.*;
 import javax.swing.border.EtchedBorder;
 import java.awt.*;
 import java.awt.event.ActionListener;
+import java.util.Observable;
+import java.util.Observer;
 
-public class GUI extends JFrame {
-    private JTextField UCASCourseCode, remainingPlacesField;
-    private JButton searchButton, placeOfferedButton;
+public class GUI extends JFrame implements Observer {
+    private final JTextField UCASCourseCode;
+    private final JTextField remainingPlacesField;
+    private final JButton searchButton;
+    private final JButton placeOfferedButton;
 
     public GUI() {
         JLabel searchPanelLabel = new JLabel("Enter the UCAS Course Code and hit 'Search' to find a course.");
@@ -66,6 +70,14 @@ public class GUI extends JFrame {
 
     public void showErrorMessage(String error){
         JOptionPane.showMessageDialog(this, error);
+    }
+
+    @Override
+    public void update(Observable o, Object arg) {
+        if(o instanceof QueryManager) {
+            this.setRemainingPlacesField(((QueryManager) o).getRemainingPlaces());
+        }
+
     }
 }
 

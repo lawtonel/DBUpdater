@@ -2,8 +2,9 @@ package main;
 
 import java.sql.*;
 import java.util.ArrayList;
+import java.util.Observable;
 
-public class QueryManager {
+public class QueryManager extends Observable {
     private static java.sql.Connection connection;
     private Statement statement;
     private ResultSet resultSet;
@@ -46,18 +47,14 @@ public class QueryManager {
             remainingPlaces = resultSet.getInt(1);
             connection.close();
             return remainingPlaces;
-        } catch (ClassNotFoundException e) {
-            e.printStackTrace();
-        } catch (SQLException e) {
+        } catch (ClassNotFoundException | SQLException e) {
             e.printStackTrace();
         }
         return -1;
     }
 
-    public int decreaseNoPlaces(String UCASCode) {
-        if(retrieveRemainingPlaces(UCASCode) < 0) {
-            return 0;
-        } else {
+    public void decreaseNoPlaces(String UCASCode) {
+
             String UCASCodeUpCase = UCASCode.toUpperCase();
             try {
                 Class.forName("oracle.jdbc.driver.OracleDriver");
@@ -68,19 +65,22 @@ public class QueryManager {
                                 "SET remainingPlaces = remainingPlaces - 1 " +
                                 "WHERE UCASid = '" + UCASCodeUpCase + "'");
                 retrieveRemainingPlaces(UCASCode);
+                notifyObservers();
                 connection.close();
-                return remainingPlaces;
+
             } catch (ClassNotFoundException e) {
                 e.printStackTrace();
             } catch (SQLException e) {
                 e.printStackTrace();
             }
-            return -1;
-        }
     }
 
     public ArrayList<String> getCoursesInClearing() {
         return coursesInClearing;
+    }
+
+    public int getRemainingPlaces() {
+        return remainingPlaces;
     }
 }
 

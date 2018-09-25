@@ -25,14 +25,15 @@ public class TestQueries {
     public void testGetAllCoursesListSize() {
         QueryManager queryManager = new QueryManager();
         ArrayList<String> testCourseList = queryManager.getCoursesInClearing();
-        assertEquals(2, testCourseList.size());
+        assertEquals(3, testCourseList.size());
     }
 
     @Test
-    public void testSuccesfulDecreasePlaces() {
+    public void testSuccessfulDecreasePlaces() {
         QueryManager queryManager = new QueryManager();
-        int initialPlaces = queryManager.retrieveRemainingPlaces("G400");
-        assertEquals(queryManager.decreaseNoPlaces("G400"), (initialPlaces-1));
+        Integer initialPlaces = queryManager.retrieveRemainingPlaces("G400");
+        queryManager.decreaseNoPlaces("G400");
+        assertEquals(queryManager.retrieveRemainingPlaces("G400"), (initialPlaces-1));
     }
 
     @Test

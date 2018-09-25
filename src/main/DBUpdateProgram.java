@@ -3,10 +3,10 @@ package main;
 public class DBUpdateProgram {
 
     public static void main(String args[]) {
-        QueryManager QueryManager = new QueryManager();
+        QueryManager queryManager = new QueryManager();
         GUI gui = new GUI();
-        DBController controller = new DBController(QueryManager, gui);
-
+        DBController controller = new DBController(queryManager, gui);
+        queryManager.addObserver(gui);
         gui.setVisible(true);
     }
 

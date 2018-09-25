@@ -4,8 +4,8 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 public class DBController {
-    private GUI gui;
-    private QueryManager queryManager;
+    private final GUI gui;
+    private final QueryManager queryManager;
 
     public DBController(QueryManager queryManager, GUI gui) {
         this.queryManager = queryManager;
@@ -39,7 +39,8 @@ public class DBController {
             } else if(queryManager.retrieveRemainingPlaces(courseCode) <= 0) {
                 gui.showErrorMessage("There are no places left on this course.");
             } else {
-                gui.setRemainingPlacesField(queryManager.decreaseNoPlaces(courseCode));
+                queryManager.decreaseNoPlaces(courseCode);
+                gui.update(queryManager, queryManager.retrieveRemainingPlaces(courseCode));
             }
         }
     }
