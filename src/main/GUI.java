@@ -23,16 +23,15 @@ public class GUI extends JFrame implements Observer {
         remainingPlacesField = new JTextField(10);
         placeOfferedButton = new JButton("Place Offered");
 
-        Dimension panelDimensions = new Dimension(400, 150);
-
         // Top Panel - contains search facility to find course
         JPanel searchPanel = new JPanel();
         searchPanel.add(searchPanelLabel);
         searchPanel.add(UCASCodeLabel);
+
         searchPanel.add(UCASCourseCode);
         searchPanel.add(searchButton);
         searchPanel.setBorder(BorderFactory.createEtchedBorder(EtchedBorder.LOWERED));
-        searchPanel.setPreferredSize(panelDimensions);
+        searchPanel.setPreferredSize(new Dimension(400, 150));
 
         // Bottom Panel - contains information about places remaining on a course
         JPanel placesPanel = new JPanel();
@@ -41,13 +40,13 @@ public class GUI extends JFrame implements Observer {
         placesPanel.add(remainingPlacesField);
         placesPanel.add(placeOfferedButton);
         placesPanel.setBorder(BorderFactory.createEtchedBorder(EtchedBorder.LOWERED));
-        placesPanel.setPreferredSize(panelDimensions);
+        placesPanel.setPreferredSize(new Dimension(400, 100));
         remainingPlacesField.setEditable(false);
 
         // JFrame settings
         this.setTitle("Clearing Places Updates");
         this.setDefaultCloseOperation(EXIT_ON_CLOSE);
-        this.setSize(400, 300);
+        this.setSize(400, 220);
         this.add(searchPanel, BorderLayout.CENTER);
         this.add(placesPanel, BorderLayout.SOUTH);
     }
@@ -64,8 +63,8 @@ public class GUI extends JFrame implements Observer {
         searchButton.addActionListener(searchListener);
     }
 
-    public void addPlacesListener(ActionListener searchListener) {
-        placeOfferedButton.addActionListener(searchListener);
+    public void addPlacesListener(ActionListener placesListener) {
+        placeOfferedButton.addActionListener(placesListener);
     }
 
     public void showErrorMessage(String error){

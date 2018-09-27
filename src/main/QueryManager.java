@@ -15,6 +15,14 @@ public class QueryManager extends Observable {
         coursesInClearing = getAllCourses();
     }
 
+    public ArrayList<String> getCoursesInClearing() {
+        return coursesInClearing;
+    }
+
+    public int getRemainingPlaces() {
+        return remainingPlaces;
+    }
+
     public ArrayList<String> getAllCourses() {
         try {
             Class.forName("oracle.jdbc.driver.OracleDriver");
@@ -54,8 +62,8 @@ public class QueryManager extends Observable {
     }
 
     public void decreaseNoPlaces(String UCASCode) {
-
-            String UCASCodeUpCase = UCASCode.toUpperCase();
+        String UCASCodeUpCase = UCASCode.toUpperCase();
+        if(retrieveRemainingPlaces(UCASCodeUpCase) != 0) {
             try {
                 Class.forName("oracle.jdbc.driver.OracleDriver");
                 connection = DriverManager.getConnection("jdbc:oracle:thin:@localhost:1521:xe", "emily", "Gander41");
@@ -67,20 +75,12 @@ public class QueryManager extends Observable {
                 retrieveRemainingPlaces(UCASCode);
                 notifyObservers();
                 connection.close();
-
             } catch (ClassNotFoundException e) {
                 e.printStackTrace();
             } catch (SQLException e) {
                 e.printStackTrace();
             }
-    }
-
-    public ArrayList<String> getCoursesInClearing() {
-        return coursesInClearing;
-    }
-
-    public int getRemainingPlaces() {
-        return remainingPlaces;
+        }
     }
 }
 
